@@ -1,27 +1,71 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+from contact import Contact
+from contact_services import ContactSevices
 
 app = FastAPI()
 
-class Msg(BaseModel):
-    msg: str
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World. Welcome to FastAPI!"}
+@app.get("/contacts/")
+async def read_all():
+
+    result = ContactSevices.get_contact_postgres()
+
+    response_final = [{
+        "id": item[0],
+        "name": item[1],
+        "phone": item[2],
+        "email": item[3]
+    }for item in result
+    ]
+
+    return response_final
 
 
-@app.get("/path")
-async def demo_get():
-    return {"message": "This is /path endpoint, use a post request to transform the text to uppercase"}
+@app.get("/contacts/{id}")
+async def read_one(id: int):
+
+    result = ContactSevices.get_one_contacts_postgres(id)
+
+    response_final = [{
+        "id": item[0],
+        "name": item[1],
+        "phone": item[2],
+        "email": item[3]
+    }for item in result
+    ]
+
+    return response_final
 
 
-@app.post("/path")
-async def demo_post(inp: Msg):
-    return {"message": inp.msg.upper()}
+@app.post("/contacts/")
+def create_contact(contact: Contact):
+
+    ContactSevices.post_contacts_postgres(contact)
+
+    return {f"Sucess Created"}
 
 
-@app.get("/path/{path_id}")
-async def demo_get_path_id(path_id: int):
-    return {"message": f"This is /path/{path_id} endpoint, use post request to retrieve result"}
+@app.delete("/contacts/{id}")
+def delete_contact(id: int):
+
+    x = ContactSevices.delete_contact_postgres(id)
+    return {f"Sucess : Deleted"}
+
+
+@app.put("/contacts/{id}")
+def update_contact(contact: Contact, id: int):
+
+    x = ContactSevices.update_contact_postgres(
+        contact, id)
+
+    return {f"Sucess Updated"}
