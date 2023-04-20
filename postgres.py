@@ -3,12 +3,10 @@ import os
 import psycopg2
 from pydantic import BaseModel
 
-database_postgres = os.environ["DATABASE_URL"]
-host_postgres = os.environ["HOSTNAME_POSTGRES"]
-user_postgres = os.environ["USER_POSTGRES"]
-password_postgres = os.environ["PASSWORD_POSTGRES"]
-
-print(user_postgres)
+database_postgres = "containers-us-west-179.railway.app"
+host_postgres = "railway"
+user_postgres = "postgres"
+password_postgres = "grT1581tkP6rYZy9DXVQ"
 
 
 class Postgres(BaseModel):
