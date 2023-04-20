@@ -3,8 +3,8 @@ import os
 import psycopg2
 from pydantic import BaseModel
 
-database_postgres = "containers-us-west-179.railway.app"
-host_postgres = "railway"
+database_postgres = "postgres"
+host_postgres = "containers-us-west-179.railway.app"
 user_postgres = "postgres"
 password_postgres = "grT1581tkP6rYZy9DXVQ"
 
