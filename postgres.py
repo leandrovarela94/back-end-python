@@ -3,11 +3,11 @@ import os
 import psycopg2
 from pydantic import BaseModel
 
-database_postgres = "postgres"
-host_postgres = "containers-us-west-179.railway.app"
+database_postgres = "railway"
+host_postgres = "containers-us-west-92.railway.app"
 user_postgres = "postgres"
-password_postgres = "grT1581tkP6rYZy9DXVQ"
-port_postgres = 6796
+password_postgres = "GQcqIDhpYMQe2TzM4l2d"
+port_postgres = 7184
 
 
 class Postgres(BaseModel):
