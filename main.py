@@ -6,7 +6,7 @@ from contact_services import ContactSevices
 
 app = FastAPI()
 
-origins = ["https://contact-book-varela.netlify.app/"]
+origins = "https://contact-book-varela.netlify.app/"
 
 app.add_middleware(
     CORSMiddleware,
